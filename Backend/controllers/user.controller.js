@@ -58,7 +58,7 @@ export const login=async(req,res)=>{
             });
         }
         //check is user is exit
-        let user=User.findOne({email});
+        let user=await User.findOne({email});
         if(!user){
             return res.status(404).json({
                 message:"User not found",
@@ -75,7 +75,7 @@ export const login=async(req,res)=>{
         }
         if(user.role!==role){
             return res.status(403).json({
-                message:"Unauthorized access",
+                message:"Unauthorized access ,u can't login with this role",
                 success:false,  
             })  
         }
@@ -132,14 +132,12 @@ export const updateProfile=async (req,res)=>{
     try {
         const {fullname,email,phoneNumber,bio,skills} =req.body;
         const file=req.files;
-        if(!fullname || !email || !phoneNumber || !bio || !skills){
-            return res.status(400).json({
-                message:"All fields are required",
-                success:false,
-            }); 
-        }
+        
         //cloudinary upload can be added here for profile picture
-        const skillsArray=skills.split(',').map((skills)=>{skills.trim()});
+        let skillsArray;
+        if(skills){
+            skillsArray = skills.split(',').map(skill => skill.trim());
+        }
         const userId=req.id;
         let user=await User.findById(userId);
         if(!user){
@@ -148,11 +146,12 @@ export const updateProfile=async (req,res)=>{
                 success:false,      
             })
         }
-        user.fullname=fullname;
-        user.email=email;
-        user.phoneNumber=phoneNumber;
-        user.bio=bio;
-        user.skills=skillsArray;
+        if (fullname) user.fullname = fullname;
+        if (email) user.email = email;
+        if (phoneNumber) user.phoneNumber = phoneNumber;
+        if (bio) user.profile.bio = bio;
+        if (skills) user.profile.skills = skills.split(",");
+
         await user.save();
         user={
             _id: user._id,

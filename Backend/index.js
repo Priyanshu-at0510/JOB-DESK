@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import connectDB from './utils/db.js';
+import userRoute from './routes/user.routes.js';
 
 connectDB();
 dotenv.config({});
@@ -23,13 +24,8 @@ const corsOptions = {
 app.use(cors(corsOptions));
 //routes
 
-app.get('/', (req, res) => {
-  return res.status(200).json({
-    message: 'Server is running',
-    timeStamp: new Date().toISOString(),
-    success:true
-  })
-});
+//api's
+app.use('/api/users',userRoute);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
