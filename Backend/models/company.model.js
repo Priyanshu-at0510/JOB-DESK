@@ -4,6 +4,7 @@ const companySchema=new mongoose.Schema({
     name:{
         type:String,
         required:true,
+        unique:true,
     },
     location:{
         type:String,
@@ -13,7 +14,6 @@ const companySchema=new mongoose.Schema({
     },
     description:{
         type:String,
-        required:true,
     },
     logo:{
         type:String,//url to logo image from database

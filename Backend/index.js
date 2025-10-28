@@ -4,6 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import connectDB from './utils/db.js';
 import userRoute from './routes/user.routes.js';
+import companyRoute from './routes/company.route.js';
 
 connectDB();
 dotenv.config({});
@@ -25,7 +26,8 @@ app.use(cors(corsOptions));
 //routes
 
 //api's
-app.use('/api/users',userRoute);
+app.use('/api/user',userRoute);
+app.use('/api/company',companyRoute);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
