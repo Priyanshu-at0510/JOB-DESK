@@ -1,4 +1,5 @@
 const Job=require('../models/job.model.js');
+//admin post the job
 export const registerJob=async (req,res)=>{
     try {
         const {title,description,requirements,location,salary,jobType,companyId,position,experience}=req.body;
@@ -35,7 +36,7 @@ export const registerJob=async (req,res)=>{
         });
     }
 }
-
+//users get all jobs
 export const getAllJobs = async (req, res) => {
   try {
     const keyword = req.query.keyword || "";
@@ -60,7 +61,7 @@ export const getAllJobs = async (req, res) => {
     return res.status(500).json({ message: "Server Error", status: false });
   }
 };
-
+//user get job by id
 export const getJobById = async (req, res) => {
   try {
     const jobId = req.params.id;
@@ -76,7 +77,7 @@ export const getJobById = async (req, res) => {
     return res.status(500).json({ message: "Server Error", status: false });
   }
 };
-
+//admin get jobs posted by him
 export const getAdminJobs = async (req, res) => {
   try {
     const adminId = req.id;
