@@ -31,6 +31,10 @@ const jobSchema=new mongoose.Schema({
         enum:['Full-time','Part-time','Contract','Internship','Temporary'],
         required:true,
     },
+    experience:{
+        type:Number,
+        required:true,
+    },
     company:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Company',
