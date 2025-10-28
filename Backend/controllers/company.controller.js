@@ -99,7 +99,6 @@ export const updateCompanyDetails=async(req,res)=>{
         }
         return res.status(200).json({
             message:"Company updated successfully",
-            company,
             success:true,   
         });
     }
