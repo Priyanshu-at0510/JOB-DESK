@@ -1,6 +1,6 @@
-const Job=require('../models/job.model.js');
+import  Job from "../models/job.model.js";
 //admin post the job
-export const registerJob=async (req,res)=>{
+export const postJob=async (req,res)=>{
     try {
         const {title,description,requirements,location,salary,jobType,companyId,position,experience}=req.body;
         const userId=req.id;
@@ -16,9 +16,9 @@ export const registerJob=async (req,res)=>{
             description,
             requirements:requirements.split(","),
             location,
-            salary:Number(salary),
+            salaryRange: { min: Number(salary), max: Number(salary) },
             jobType,
-            experienceLevel: experience,
+            experience,
             company:companyId,
             position,
             createdBy:userId,
