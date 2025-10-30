@@ -17,15 +17,10 @@ const jobSchema=new mongoose.Schema({
         type:String,
         required:true,
     },
-    salaryRange:{
-        min:{
-            type:Number,
-            required:true,
-        },
-        max:{
-            type:Number,
-            required:true,
-    }},
+    salary: {
+      type: String,
+      required: true,
+    },
     jobType:{
         type:String,
         enum:['Full-time','Part-time','Contract','Internship','Temporary'],
