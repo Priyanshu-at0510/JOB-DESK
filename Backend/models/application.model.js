@@ -11,10 +11,6 @@ const jobSchema=new mongoose.Schema({
         ref:'Job',
         required:true,
     },
-    resume:{
-        type:String,//url to resume file from database
-        required:true,
-    },
     status:{
         type:String,
         enum:['Pending','Accepted','Rejected'],

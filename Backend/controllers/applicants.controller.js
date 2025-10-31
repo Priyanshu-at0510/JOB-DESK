@@ -33,10 +33,10 @@ export const applyJob=async(req,res)=>{
         const newApplication=new Application({
             job:jobId,
             applicant:userId,
-            status:'Applied',
         });
         job.applications.push(newApplication._id);
         await job.save();
+        await newApplication.save();
         
         return res.status(201).json({
             message:"Job application submit successfully",
@@ -56,9 +56,10 @@ export const getAppliedJobs=async (req,res)=>{
     try {
         const userId=req.id;
         const applications=(await Application.find({applicant:userId})
-           .sort({createdAt:-1}))
+           .sort({createdAt:-1})
            .populate({ path:'job',options:{sort:{createdAt:-1}}
-         });
+         })
+        )
         if(!applications || applications.length===0){
             return res.status(404).json({
                 message:"No applied jobs found",
@@ -118,7 +119,7 @@ export const getApplicants=async (req,res)=>{
 
 export const updateStatus=async (req,res)=>{
     try {
-        const {status}=req.params;
+        const {status}=req.body;
         const applicationId=req.params.id;
         if(!status){
             return res.status(404).json({
@@ -134,6 +135,14 @@ export const updateStatus=async (req,res)=>{
                 success:false,
             })
         }
+        //update status
+        application.status=status;
+        await application.save();
+        return res.status(200).json({
+            message:"Application status updated successfully",
+            application,
+            success:true,
+        });
 
     } catch (error) {
         console.error("Error in updateStatus:",error);
