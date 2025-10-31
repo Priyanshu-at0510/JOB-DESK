@@ -6,6 +6,7 @@ import connectDB from './utils/db.js';
 import userRoute from './routes/user.routes.js';
 import companyRoute from './routes/company.route.js';
 import jobRoute from './routes/job.routes.js';
+import applicationRoute from './routes/application.route.js';
 
 connectDB();
 dotenv.config({});
@@ -30,6 +31,7 @@ app.use(cors(corsOptions));
 app.use('/api/user',userRoute);
 app.use('/api/company',companyRoute);
 app.use('/api/job',jobRoute);
+app.use('/api/application',applicationRoute);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
