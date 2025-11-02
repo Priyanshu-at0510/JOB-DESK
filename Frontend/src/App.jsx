@@ -1,12 +1,25 @@
 import React from 'react'
-import Navbar from './components/components_lite/navBar.jsx'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import Login from './components/authentication/Login.jsx'
+import Signup from './components/authentication/Signup.jsx'
+import   Home  from './components/components_lite/Home.jsx'
+
+const appRouter=createBrowserRouter([
+  {
+    path:'/',element:<Home/>
+  },
+  {
+    path:'/login',element:<Login/>
+  },
+  {
+    path:'/signup',element:<Signup/>
+  },
+])
 
 const App = () => {
   return (
     <div>
-      <h1>
-        <Navbar/>
-      </h1>
+      <RouterProvider router={appRouter} />
     </div>
   )
 }
